@@ -34,6 +34,8 @@ class LikeButton extends StatefulWidget {
   ///whether it is liked
   final bool isLiked;
 
+  final double childWidth;
+
   ///like count
   ///if null, will not show
   final int likeCount;
@@ -81,6 +83,7 @@ class LikeButton extends StatefulWidget {
       double circleSize,
       this.likeCount,
       this.isLiked: false,
+        this.childWidth,
       this.mainAxisAlignment: MainAxisAlignment.center,
       this.crossAxisAlignment: CrossAxisAlignment.center,
       this.animationDuration = const Duration(milliseconds: 1000),
@@ -193,10 +196,11 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
               defaultWidgetBuilder((_isLiked ?? true), widget.size);
           return Stack(
             overflow: Overflow.visible,
+            alignment: Alignment.center,
             children: <Widget>[
               Positioned(
                 top: (widget.size - widget.bubblesSize) / 2.0,
-                left: (widget.size - widget.bubblesSize) / 2.0,
+                left: ((widget.childWidth ?? widget.size ) - widget.bubblesSize) / 2.0,
                 child: CustomPaint(
                   size: Size(widget.bubblesSize, widget.bubblesSize),
                   painter: BubblesPainter(
@@ -210,7 +214,7 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
               ),
               Positioned(
                 top: (widget.size - widget.circleSize) / 2.0,
-                left: (widget.size - widget.circleSize) / 2.0,
+                left: ((widget.childWidth ?? widget.size ) - widget.circleSize) / 2.0,
                 child: CustomPaint(
                   size: Size(widget.circleSize, widget.circleSize),
                   painter: CirclePainter(
@@ -221,7 +225,7 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
                 ),
               ),
               Container(
-                width: widget.size,
+//                width: widget.size,
                 height: widget.size,
                 alignment: Alignment.center,
                 child: Transform.scale(
@@ -231,7 +235,7 @@ class _LikeButtonState extends State<LikeButton> with TickerProviderStateMixin {
                   child: SizedBox(
                     child: likeWidget,
                     height: widget.size,
-                    width: widget.size,
+//                    width: widget.size,
                   ),
                 ),
               ),
